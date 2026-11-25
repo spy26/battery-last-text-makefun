@@ -22,6 +22,11 @@ def main() -> int:
     if "\n" in line or "\r" in line:
         print("error: entry must be a single line", file=sys.stderr)
         return 1
+    # ASCII only: the grader reads bytes, and a non-ASCII character would
+    # change the byte count it sees versus the character count.
+    if not line.isascii():
+        print("error: entry must be ASCII only", file=sys.stderr)
+        return 1
     if not line.strip():
         print("error: entry is empty or only whitespace", file=sys.stderr)
         return 1
